@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: application-config
+data:
+  DATABASE_JDBC_URL: "jdbc:postgresql://localhost:5432/user"
+  DATABASE_JDBC_MAXSIZE: "16"
