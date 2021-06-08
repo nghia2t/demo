@@ -1,0 +1,168 @@
+openapi: 3.0.0
+# Added by API Auto Mocking Plugin
+servers:
+  - description: SwaggerHub API Auto Mocking
+    url: https://virtserver.swaggerhub.com/robincomcarde/demo-api/1.0.0
+info:
+  description: This is a simple API
+  version: "1.0.0"
+  title: Simple Inventory API
+  contact:
+    email: you@your-company.com
+  license:
+    name: Apache 2.0
+    url: 'http://www.apache.org/licenses/LICENSE-2.0.html'
+tags:
+  - name: Users
+    description: User
+paths:
+  /api/users/{id}:
+    get:
+      tags:
+        - Users
+      summary: get User
+      operationId: getUser
+      description: |
+        Get user by Id
+      parameters:
+        - in: path
+          name: id
+          description: userId
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: object
+                $ref: '#/components/schemas/User'
+        '400':
+          description: bad input parameter
+    post:
+      tags:
+        - Users
+      summary: update user
+      operationId: updateUser
+      description: update user
+      responses:
+        '201':
+          description: item created
+        '400':
+          description: 'invalid input, object invalid'
+      parameters:
+        - in: path
+          name: id
+          description: userId
+          required: true
+          schema:
+            type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        description: item to update
+    delete:
+      tags:
+        - Users
+      summary: delete user
+      operationId: deleteUser
+      description: delete user
+      responses:
+        '200':
+          description: deleted
+        '400':
+          description: 'invalid input, object invalid'
+      parameters:
+        - in: path
+          name: id
+          description: userId
+          required: true
+          schema:
+            type: string
+  /api/users:
+    get:
+      tags:
+        - Users
+      summary: search User
+      operationId: searchUser
+      description: |
+        search Users
+      parameters:
+        - in: query
+          name: firstName
+          schema:
+            type: string
+        - in: query
+          name: lastName
+          schema:
+            type: string
+        - in: query
+          name: street
+          schema:
+            type: string
+        - in: query
+          name: houseNumber
+          schema:
+            type: string
+        - in: query
+          name: grade
+          schema:
+            type: string
+      responses:
+        '200':
+          description: search results matching criteria
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/User'
+        '400':
+          description: bad input parameter
+    put:
+      tags:
+        - Users
+      summary: adds user
+      operationId: addUser
+      description: Adds user to the system
+      responses:
+        '201':
+          description: item created
+        '400':
+          description: 'invalid input, object invalid'
+        '409':
+          description: an existing item already exists
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/User'
+        description: item to add
+components:
+  schemas:
+    User:
+      type: object
+      properties:
+        id:
+          type: integer
+        firstName:
+          type: string
+        lastName:
+          type: string
+        grade:
+          type: string
+        address:
+          $ref: '#/components/schemas/Address'
+    Address:
+      type: object
+      properties:
+        houseNumber:
+          type: string
+        street:
+          type: string
+        country:
+          type: string
